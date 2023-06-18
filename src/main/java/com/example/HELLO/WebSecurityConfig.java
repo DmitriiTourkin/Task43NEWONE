@@ -18,16 +18,6 @@ import javax.sql.DataSource;
 @EnableWebSecurity
 @EnableMethodSecurity
 public class WebSecurityConfig {
-
-    /*@Bean
-    DataSource user_db() {
-        return new EmbeddedDatabaseBuilder()
-                .setType(EmbeddedDatabaseType.H2)
-                .setName("usrs")
-                .addScript(JdbcDaoImpl.DEFAULT_USER_SCHEMA_DDL_LOCATION)
-                .build();
-    }*/
-
     @Autowired
     DataSource dataSource;
 
@@ -45,8 +35,6 @@ public class WebSecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> {
                     auth.requestMatchers("/login", "/registration").permitAll();
-                    auth.requestMatchers("/new", "/save", "/edit/*", "/delete/*").hasAuthority("ADMIN");
-                    auth.requestMatchers("/static/**").permitAll();
                     auth.anyRequest().authenticated();
                 })
                 .formLogin(l->{
