@@ -1,0 +1,23 @@
+create table users
+(
+    username varchar(50)    not null
+        primary key,
+    password varchar(10000) not null,
+    enabled  tinyint(1)     not null
+)
+    charset = utf8mb3;
+
+
+
+create table authorities
+(
+    username  varchar(50) not null
+        primary key,
+    authority varchar(50) not null,
+    constraint ix_auth_username
+        unique (username, authority),
+    constraint fk_authorities_users
+        foreign key (username) references users (username)
+)
+    charset = utf8mb3;
+
